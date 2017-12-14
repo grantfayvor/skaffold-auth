@@ -1,0 +1,35 @@
+{
+  "name": "kleek-auth",
+  "version": "1.0.0",
+  "description": "plugin authentication for kleek project",
+  "main": "index.js",
+  "dependencies": {
+    "passport": "^0.4.0",
+    "passport-jwt": "^3.0.1",
+    "passport-local": "^1.0.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "babel src --watch --out-dir production",
+    "server": "babel index.js --watch --out-file server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/grantfayvor/kleek-auth.git"
+  },
+  "keywords": [
+    "kleek",
+    "auth",
+    "ecommerce"
+  ],
+  "author": "Harrison Favour",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/grantfayvor/kleek-auth/issues"
+  },
+  "homepage": "https://github.com/grantfayvor/kleek-auth#readme"
+}

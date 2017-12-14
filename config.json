@@ -1,0 +1,6 @@
+{
+    "ecmascript": "es5",
+    "auth": {
+        "type": "local"
+    }
+}
