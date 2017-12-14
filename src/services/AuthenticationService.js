@@ -20,16 +20,18 @@ export class PassportLocalService {
         this._passport = passport;
         this[_fields] = options.fields;
         this._behaviour = options.behaviour;
+        this._userService = new UserService();
         this[_config]();
     }
 
     [_config]() {
+        let userService = this._userService;
         this._passport.use(new LocalStrategy({
             usernameField: this[_fields].usernameField,
             passwordField: this[_fields].passwordField
         },
             function (username, password, done) {
-                _userService.confirmUserDetails(username, password, done);
+                userService.confirmUserDetails(username, password, done);
             }
         ));
         if (this._behaviour.session) {
@@ -37,7 +39,7 @@ export class PassportLocalService {
                 done(null, user.id);
             });
             this._passport.deserializeUser((userId, done) => {
-                _userService.findUserById(userId, user => {
+                userService.findUserById(userId, user => {
                     done(null, user);
                 });
             });

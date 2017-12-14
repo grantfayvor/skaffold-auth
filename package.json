@@ -1,6 +1,6 @@
 {
   "name": "kleek-auth",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "plugin authentication for kleek project",
   "main": "index.js",
   "dependencies": {
