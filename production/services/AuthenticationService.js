@@ -8,6 +8,8 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
+var UserService = require('../../../kleek-main').UserService;
+
 var passport = require('passport'),
     LocalStrategy = require('passport-local').Strategy,
     _fields = Symbol('fields'),
@@ -25,36 +27,30 @@ var PassportLocalService = exports.PassportLocalService = function () {
                 session: true
             }
         };
-        var confirmUserDetails = arguments[1];
-        var deserializer = arguments[2];
 
         _classCallCheck(this, PassportLocalService);
 
         this._passport = passport;
         this[_fields] = options.fields;
         this._behaviour = options.behaviour;
-        this[_confirmUserDetails] = confirmUserDetails;
-        this[_deserializer] = deserializer;
         this[_config]();
     }
 
     _createClass(PassportLocalService, [{
         key: _config,
         value: function value() {
-            var confirmUserDetails = this[_confirmUserDetails];
-            var deserializer = this[_deserializer];
             this._passport.use(new LocalStrategy({
                 usernameField: this[_fields].usernameField,
                 passwordField: this[_fields].passwordField
             }, function (username, password, done) {
-                confirmUserDetails(username, password, done);
+                _userService.confirmUserDetails(username, password, done);
             }));
             if (this._behaviour.session) {
                 this._passport.serializeUser(function (user, done) {
                     done(null, user.id);
                 });
                 this._passport.deserializeUser(function (userId, done) {
-                    deserializer(userId, function (user) {
+                    _userService.findUserById(userId, function (user) {
                         done(null, user);
                     });
                 });
@@ -71,8 +67,8 @@ var _passport = require('passport'),
     JWTStrategy = _passportJWT.Strategy;
 
 var PassportJWTService = exports.PassportJWTService = function () {
-    function PassportJWTService() {
-        var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {
+    function PassportJWTService(confirmUserDetails, deserializer) {
+        var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {
             fields: {
                 usernameField: 'email',
                 passwordField: 'password'
@@ -83,8 +79,6 @@ var PassportJWTService = exports.PassportJWTService = function () {
                 secretOrKey: 'secret'
             }
         };
-        var confirmUserDetails = arguments[1];
-        var deserializer = arguments[2];
 
         _classCallCheck(this, PassportJWTService);
 

@@ -1,50 +1,48 @@
+const UserService = require('../../../kleek-main').UserService;
+
 const passport = require('passport'),
-LocalStrategy = require('passport-local').Strategy,
-_fields = Symbol('fields'),
-_config = Symbol('config');
+    LocalStrategy = require('passport-local').Strategy,
+    _fields = Symbol('fields'),
+    _config = Symbol('config');
 
 export class PassportLocalService {
 
-constructor(options = {
-    fields: {
-        usernameField: 'email',
-        passwordField: 'password'
-    }, behaviour: {
-        successRedirect: '/',
-        failureRedirect: '/login',
-        session: true
-    }
-}, confirmUserDetails, deserializer) {
-    this._passport = passport;
-    this[_fields] = options.fields;
-    this._behaviour = options.behaviour;
-    this[_confirmUserDetails] = confirmUserDetails;
-    this[_deserializer] = deserializer;
-    this[_config]();
-}
-
-[_config]() {
-    let confirmUserDetails = this[_confirmUserDetails];
-    let deserializer = this[_deserializer];
-    this._passport.use(new LocalStrategy({
-        usernameField: this[_fields].usernameField,
-        passwordField: this[_fields].passwordField
-    },
-        function (username, password, done) {
-            confirmUserDetails(username, password, done);
+    constructor(options = {
+        fields: {
+            usernameField: 'email',
+            passwordField: 'password'
+        }, behaviour: {
+            successRedirect: '/',
+            failureRedirect: '/login',
+            session: true
         }
-    ));
-    if (this._behaviour.session) {
-        this._passport.serializeUser((user, done) => {
-            done(null, user.id);
-        });
-        this._passport.deserializeUser((userId, done) => {
-            deserializer(userId, user => {
-                done(null, user);
-            });
-        });
+    }) {
+        this._passport = passport;
+        this[_fields] = options.fields;
+        this._behaviour = options.behaviour;
+        this[_config]();
     }
-}
+
+    [_config]() {
+        this._passport.use(new LocalStrategy({
+            usernameField: this[_fields].usernameField,
+            passwordField: this[_fields].passwordField
+        },
+            function (username, password, done) {
+                _userService.confirmUserDetails(username, password, done);
+            }
+        ));
+        if (this._behaviour.session) {
+            this._passport.serializeUser((user, done) => {
+                done(null, user.id);
+            });
+            this._passport.deserializeUser((userId, done) => {
+                _userService.findUserById(userId, user => {
+                    done(null, user);
+                });
+            });
+        }
+    }
 
 }
 
@@ -55,7 +53,7 @@ JWTStrategy = _passportJWT.Strategy;
 
 export class PassportJWTService {
 
-constructor(options = {
+constructor(confirmUserDetails, deserializer, options = {
     fields: {
         usernameField: 'email',
         passwordField: 'password'
@@ -65,7 +63,7 @@ constructor(options = {
         session: true,
         secretOrKey : 'secret'
     }
-}, confirmUserDetails, deserializer) {
+}) {
     this._passport = passport;
     this._fields = options.fields;
     this._behaviour = options.behaviour;
