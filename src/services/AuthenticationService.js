@@ -1,4 +1,4 @@
-const UserService = require('../../../skaffold-main').UserService;
+const UserService = require('../../../skaffold-ecommerce').UserService;
 
 const passport = require('passport'),
     LocalStrategy = require('passport-local').Strategy,
