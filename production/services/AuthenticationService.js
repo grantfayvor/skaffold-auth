@@ -8,7 +8,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var UserService = require('../../../kleek-main').UserService;
+var UserService = require('../../../skaffold-main').UserService;
 
 var passport = require('passport'),
     LocalStrategy = require('passport-local').Strategy,

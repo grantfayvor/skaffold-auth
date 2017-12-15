@@ -6,7 +6,7 @@ __STEPS TO INSTALL__
 
 * run the command <code>npm install skaffold-auth</code> from your terminal.
 * add the following code to your project <br>
-<code>var PassportLocalService = require('kleek-auth').AuthenticationService.PassportLocalService; <br>
+<code>var PassportLocalService = require('skaffold-auth').AuthenticationService.PassportLocalService; <br>
 var authenticationService = new PassportLocalService(); <br>
 app.use(authenticationService._passport.initialize());
 app.use(authenticationService._passport.session());<br></code>

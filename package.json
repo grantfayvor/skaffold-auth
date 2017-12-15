@@ -1,7 +1,7 @@
 {
-  "name": "kleek-auth",
+  "name": "skaffold-auth",
   "version": "1.0.1",
-  "description": "plugin authentication for kleek project",
+  "description": "plugin authentication for skaffold project",
   "main": "index.js",
   "dependencies": {
     "passport": "^0.4.0",
@@ -19,17 +19,17 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/grantfayvor/kleek-auth.git"
+    "url": "git+https://github.com/grantfayvor/skaffold-auth.git"
   },
   "keywords": [
-    "kleek",
+    "skaffold",
     "auth",
     "ecommerce"
   ],
   "author": "Harrison Favour",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/grantfayvor/kleek-auth/issues"
+    "url": "https://github.com/grantfayvor/skaffold-auth/issues"
   },
-  "homepage": "https://github.com/grantfayvor/kleek-auth#readme"
+  "homepage": "https://github.com/grantfayvor/skaffold-auth#readme"
 }
