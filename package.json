@@ -1,6 +1,6 @@
 {
   "name": "skaffold-auth",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "plugin authentication for skaffold project",
   "main": "index.js",
   "dependencies": {
